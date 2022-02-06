@@ -19,11 +19,9 @@
   "dependencies": {
     "@fluencelabs/fluence": "^0.15.1",
     "@fluencelabs/fluence-network-environment": "1.0.10",
-    "@types/sqlite3": "^3.1.7",
-    "base64-js": "^1.5.1",
-    "ethers": "^5.4.7",
-    "ethers-eip712": "^0.2.0",
-    "got": "^11.8.2",
-    "sqlite3": "^5.0.2"
+    "@listener-js/http": "^0.3.0",
+    "@listener-js/listener": "^3.29.0",
+    "axios": "^0.25.0",
+    "base64-js": "^1.5.1"
   }
 }
