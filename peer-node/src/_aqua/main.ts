@@ -17,8 +17,6 @@ import {
 // Services
 
 export interface GiveMeDataDef {
-    getFromPeer: (callParams: CallParams<null>) => string | Promise<string>;
-    returnDataToPeer: (data: string, callParams: CallParams<'data'>) => string | Promise<string>;
     workWithDocker: (data: string, callParams: CallParams<'data'>) => string | Promise<string>;
 }
 export function registerGiveMeData(service: GiveMeDataDef): void;
@@ -33,28 +31,6 @@ export function registerGiveMeData(...args: any) {
         {
     "defaultServiceId" : "giveMeData",
     "functions" : [
-        {
-            "functionName" : "getFromPeer",
-            "argDefs" : [
-            ],
-            "returnType" : {
-                "tag" : "primitive"
-            }
-        },
-        {
-            "functionName" : "returnDataToPeer",
-            "argDefs" : [
-                {
-                    "name" : "data",
-                    "argType" : {
-                        "tag" : "primitive"
-                    }
-                }
-            ],
-            "returnType" : {
-                "tag" : "primitive"
-            }
-        },
         {
             "functionName" : "workWithDocker",
             "argDefs" : [
@@ -75,114 +51,6 @@ export function registerGiveMeData(...args: any) {
 }
       
 // Functions
- 
-
-export function getFromPeer(
-    targetPeerId: string,
-    targetRelayPeerId: string,
-    data: string,
-    config?: {ttl?: number}
-): Promise<string>;
-
-export function getFromPeer(
-    peer: FluencePeer,
-    targetPeerId: string,
-    targetRelayPeerId: string,
-    data: string,
-    config?: {ttl?: number}
-): Promise<string>;
-
-export function getFromPeer(...args: any) {
-
-    let script = `
-                    (xor
-                     (seq
-                      (seq
-                       (seq
-                        (seq
-                         (seq
-                          (seq
-                           (seq
-                            (seq
-                             (seq
-                              (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
-                              (call %init_peer_id% ("getDataSrv" "targetPeerId") [] targetPeerId)
-                             )
-                             (call %init_peer_id% ("getDataSrv" "targetRelayPeerId") [] targetRelayPeerId)
-                            )
-                            (call %init_peer_id% ("getDataSrv" "data") [] data)
-                           )
-                           (call -relay- ("op" "noop") [])
-                          )
-                          (call targetRelayPeerId ("op" "noop") [])
-                         )
-                         (xor
-                          (call targetPeerId ("giveMeData" "getFromPeer") [] res)
-                          (seq
-                           (seq
-                            (seq
-                             (call targetRelayPeerId ("op" "noop") [])
-                             (call -relay- ("op" "noop") [])
-                            )
-                            (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 1])
-                           )
-                           (call -relay- ("op" "noop") [])
-                          )
-                         )
-                        )
-                        (call targetRelayPeerId ("op" "noop") [])
-                       )
-                       (call -relay- ("op" "noop") [])
-                      )
-                      (xor
-                       (call %init_peer_id% ("callbackSrv" "response") [res])
-                       (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 2])
-                      )
-                     )
-                     (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 3])
-                    )
-    `
-    return callFunction(
-        args,
-        {
-    "functionName" : "getFromPeer",
-    "returnType" : {
-        "tag" : "primitive"
-    },
-    "argDefs" : [
-        {
-            "name" : "targetPeerId",
-            "argType" : {
-                "tag" : "primitive"
-            }
-        },
-        {
-            "name" : "targetRelayPeerId",
-            "argType" : {
-                "tag" : "primitive"
-            }
-        },
-        {
-            "name" : "data",
-            "argType" : {
-                "tag" : "primitive"
-            }
-        }
-    ],
-    "names" : {
-        "relay" : "-relay-",
-        "getDataSrv" : "getDataSrv",
-        "callbackSrv" : "callbackSrv",
-        "responseSrv" : "callbackSrv",
-        "responseFnName" : "response",
-        "errorHandlingSrv" : "errorHandlingSrv",
-        "errorFnName" : "error"
-    }
-},
-        script
-    )
-}
-
  
 
 export function workWithDocker(
@@ -247,114 +115,6 @@ export function workWithDocker(...args: any) {
 
  
 
-export function returnDataToPeer(
-    targetPeerId: string,
-    targetRelayPeerId: string,
-    data: string,
-    config?: {ttl?: number}
-): Promise<string>;
-
-export function returnDataToPeer(
-    peer: FluencePeer,
-    targetPeerId: string,
-    targetRelayPeerId: string,
-    data: string,
-    config?: {ttl?: number}
-): Promise<string>;
-
-export function returnDataToPeer(...args: any) {
-
-    let script = `
-                    (xor
-                     (seq
-                      (seq
-                       (seq
-                        (seq
-                         (seq
-                          (seq
-                           (seq
-                            (seq
-                             (seq
-                              (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
-                              (call %init_peer_id% ("getDataSrv" "targetPeerId") [] targetPeerId)
-                             )
-                             (call %init_peer_id% ("getDataSrv" "targetRelayPeerId") [] targetRelayPeerId)
-                            )
-                            (call %init_peer_id% ("getDataSrv" "data") [] data)
-                           )
-                           (call -relay- ("op" "noop") [])
-                          )
-                          (call targetRelayPeerId ("op" "noop") [])
-                         )
-                         (xor
-                          (call targetPeerId ("giveMeData" "returnDataToPeer") [data] res)
-                          (seq
-                           (seq
-                            (seq
-                             (call targetRelayPeerId ("op" "noop") [])
-                             (call -relay- ("op" "noop") [])
-                            )
-                            (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 1])
-                           )
-                           (call -relay- ("op" "noop") [])
-                          )
-                         )
-                        )
-                        (call targetRelayPeerId ("op" "noop") [])
-                       )
-                       (call -relay- ("op" "noop") [])
-                      )
-                      (xor
-                       (call %init_peer_id% ("callbackSrv" "response") [res])
-                       (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 2])
-                      )
-                     )
-                     (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 3])
-                    )
-    `
-    return callFunction(
-        args,
-        {
-    "functionName" : "returnDataToPeer",
-    "returnType" : {
-        "tag" : "primitive"
-    },
-    "argDefs" : [
-        {
-            "name" : "targetPeerId",
-            "argType" : {
-                "tag" : "primitive"
-            }
-        },
-        {
-            "name" : "targetRelayPeerId",
-            "argType" : {
-                "tag" : "primitive"
-            }
-        },
-        {
-            "name" : "data",
-            "argType" : {
-                "tag" : "primitive"
-            }
-        }
-    ],
-    "names" : {
-        "relay" : "-relay-",
-        "getDataSrv" : "getDataSrv",
-        "callbackSrv" : "callbackSrv",
-        "responseSrv" : "callbackSrv",
-        "responseFnName" : "response",
-        "errorHandlingSrv" : "errorHandlingSrv",
-        "errorFnName" : "error"
-    }
-},
-        script
-    )
-}
-
- 
-
 export function main(
     targetPeerId: string,
     targetRelayPeerId: string,
@@ -378,70 +138,16 @@ export function main(...args: any) {
                       (seq
                        (seq
                         (seq
-                         (seq
-                          (seq
-                           (seq
-                            (seq
-                             (seq
-                              (seq
-                               (seq
-                                (seq
-                                 (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
-                                 (call %init_peer_id% ("getDataSrv" "targetPeerId") [] targetPeerId)
-                                )
-                                (call %init_peer_id% ("getDataSrv" "targetRelayPeerId") [] targetRelayPeerId)
-                               )
-                               (call %init_peer_id% ("getDataSrv" "data") [] data)
-                              )
-                              (call -relay- ("op" "noop") [])
-                             )
-                             (call targetRelayPeerId ("op" "noop") [])
-                            )
-                            (xor
-                             (call targetPeerId ("giveMeData" "getFromPeer") [] res)
-                             (seq
-                              (seq
-                               (seq
-                                (call targetRelayPeerId ("op" "noop") [])
-                                (call -relay- ("op" "noop") [])
-                               )
-                               (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 1])
-                              )
-                              (call -relay- ("op" "noop") [])
-                             )
-                            )
-                           )
-                           (call targetRelayPeerId ("op" "noop") [])
-                          )
-                          (call -relay- ("op" "noop") [])
-                         )
-                         (call %init_peer_id% ("giveMeData" "workWithDocker") [data] res0)
+                         (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
+                         (call %init_peer_id% ("getDataSrv" "targetPeerId") [] targetPeerId)
                         )
-                        (call -relay- ("op" "noop") [])
+                        (call %init_peer_id% ("getDataSrv" "targetRelayPeerId") [] targetRelayPeerId)
                        )
-                       (call targetRelayPeerId ("op" "noop") [])
+                       (call %init_peer_id% ("getDataSrv" "data") [] data)
                       )
-                      (xor
-                       (call targetPeerId ("giveMeData" "returnDataToPeer") [data] res1)
-                       (seq
-                        (seq
-                         (seq
-                          (call targetRelayPeerId ("op" "noop") [])
-                          (call -relay- ("op" "noop") [])
-                         )
-                         (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 2])
-                        )
-                        (call -relay- ("op" "noop") [])
-                       )
-                      )
+                      (call %init_peer_id% ("giveMeData" "workWithDocker") [data] res)
                      )
-                     (seq
-                      (seq
-                       (call targetRelayPeerId ("op" "noop") [])
-                       (call -relay- ("op" "noop") [])
-                      )
-                      (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 3])
-                     )
+                     (call %init_peer_id% ("errorHandlingSrv" "error") [%last_error% 1])
                     )
     `
     return callFunction(
