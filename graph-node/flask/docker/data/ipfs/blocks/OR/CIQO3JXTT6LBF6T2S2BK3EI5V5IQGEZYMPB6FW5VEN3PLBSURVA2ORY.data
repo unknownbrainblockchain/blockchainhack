@@ -1,0 +1,79 @@
+
+‡ÿdataSources:
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdiowXmwRrMu28Ms7bYFKsZAKWn5dv92NZzS7t58qzZgv
+          name: IERC20
+      apiVersion: 0.0.5
+      entities:
+        - ERC20Contract
+      eventHandlers:
+        - event: 'Approval(indexed address,indexed address,uint256)'
+          handler: handleApproval
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+      file:
+        /: /ipfs/QmVwE9uFgQVTTASsbbe8iBD5PuYe4KvbNFc4NQrX88tYCC
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: erc20
+    network: mainnet
+    source:
+      abi: IERC20
+      address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+      startBlock: 13000000
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmVjhxbJvwq39tGZCNxTDuY6rjW5HYiHzCm9kQnm1bLJ1M
+          name: Ownable
+      apiVersion: 0.0.5
+      entities:
+        - Ownable
+      eventHandlers:
+        - event: 'OwnershipTransferred(indexed address,indexed address)'
+          handler: handleOwnershipTransferred
+      file:
+        /: /ipfs/QmdSejwQmYU2vKFMj17edkrMW5RsUpSrndoJSuAQ4PrZMi
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: ownable
+    network: mainnet
+    source:
+      abi: Ownable
+      address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+      startBlock: 13000000
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmeneDeaPt3RBZKEk74TRfjNsWvSWQcnxuqoiYEPMzeb82
+          name: AccessControl
+      apiVersion: 0.0.5
+      entities:
+        - AccessControl
+      eventHandlers:
+        - event: 'RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)'
+          handler: handleRoleAdminChanged
+        - event: 'RoleGranted(indexed bytes32,indexed address,indexed address)'
+          handler: handleRoleGranted
+        - event: 'RoleRevoked(indexed bytes32,indexed address,indexed address)'
+          handler: handleRoleRevoked
+      file:
+        /: /ipfs/QmWGapYUs68BB2rhMZFqz7s1iCa2NLBY7AgBbYsEWdZadw
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: accesscontrol
+    network: mainnet
+    source:
+      abi: AccessControl
+      address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+      startBlock: 13000000
+schema:
+  file:
+    /: /ipfs/QmebzLvcFAgUmt4hnbwHdbPh4xUpXMtj78GRENwRmNdJ3G
+specVersion: 0.0.2
+ÿ

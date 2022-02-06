@@ -1,0 +1,7 @@
+{
+  "output": "generated/sample.",
+  "chain": "mainnet",
+  "datasources": [
+    { "address": "put_address", "startBlock": put_start_block, "module": [ "erc20",    "accesscontrol" ] }]
+}
+

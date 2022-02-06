@@ -1,0 +1,16 @@
+{
+  "name": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ https://gateway.thegraph.com/api/[api-key]/subgraphs/id/0x9bde7bf4d5b13ef94373ced7c8ee0be59735a298-1",
+    "create-local": "graph create --node http://localhost:8020/ https://gateway.thegraph.com/api/[api-key]/subgraphs/id/0x9bde7bf4d5b13ef94373ced7c8ee0be59735a298-1",
+    "remove-local": "graph remove --node http://localhost:8020/ https://gateway.thegraph.com/api/[api-key]/subgraphs/id/0x9bde7bf4d5b13ef94373ced7c8ee0be59735a298-1",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 https://gateway.thegraph.com/api/[api-key]/subgraphs/id/0x9bde7bf4d5b13ef94373ced7c8ee0be59735a298-1"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.26.0",
+    "@graphprotocol/graph-ts": "0.24.1"
+  }
+}

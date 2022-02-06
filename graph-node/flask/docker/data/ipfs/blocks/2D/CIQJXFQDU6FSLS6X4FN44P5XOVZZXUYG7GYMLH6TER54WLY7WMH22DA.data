@@ -1,0 +1,57 @@
+
+÷ïdataSources:
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmdiowXmwRrMu28Ms7bYFKsZAKWn5dv92NZzS7t58qzZgv
+          name: IERC20
+      apiVersion: 0.0.5
+      entities:
+        - ERC20Contract
+      eventHandlers:
+        - event: 'Approval(indexed address,indexed address,uint256)'
+          handler: handleApproval
+        - event: 'Transfer(indexed address,indexed address,uint256)'
+          handler: handleTransfer
+      file:
+        /: /ipfs/QmVwE9uFgQVTTASsbbe8iBD5PuYe4KvbNFc4NQrX88tYCC
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: erc20
+    network: mainnet
+    source:
+      abi: IERC20
+      address: '0xA3B26327482312f70E077aAba62336f7643e41E1'
+      startBlock: 11633151
+  - kind: ethereum/contract
+    mapping:
+      abis:
+        - file:
+            /: /ipfs/QmeneDeaPt3RBZKEk74TRfjNsWvSWQcnxuqoiYEPMzeb82
+          name: AccessControl
+      apiVersion: 0.0.5
+      entities:
+        - AccessControl
+      eventHandlers:
+        - event: 'RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)'
+          handler: handleRoleAdminChanged
+        - event: 'RoleGranted(indexed bytes32,indexed address,indexed address)'
+          handler: handleRoleGranted
+        - event: 'RoleRevoked(indexed bytes32,indexed address,indexed address)'
+          handler: handleRoleRevoked
+      file:
+        /: /ipfs/QmWGapYUs68BB2rhMZFqz7s1iCa2NLBY7AgBbYsEWdZadw
+      kind: ethereum/events
+      language: wasm/assemblyscript
+    name: accesscontrol
+    network: mainnet
+    source:
+      abi: AccessControl
+      address: '0xA3B26327482312f70E077aAba62336f7643e41E1'
+      startBlock: 11633151
+schema:
+  file:
+    /: /ipfs/QmYG74NDQfc3djGgrPtmNWuaaEN57on4ykFqGqEgeV8TJ1
+specVersion: 0.0.2
+ï
