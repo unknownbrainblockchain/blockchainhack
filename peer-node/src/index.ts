@@ -48,12 +48,13 @@ class GiveMeData implements GiveMeDataDef {
 
 
 async function main() {
+    await Fluence.start({connectTo: krasnodar[4]})
     console.log("PeerId: ", Fluence.getStatus().peerId);
     console.log("Relay id: ", Fluence.getStatus().relayPeerId);
 
     registerGiveMeData("GiveMeData", new GiveMeData());
 
     console.log("crtl-c to exit");
-        // await Fluence.stop();
+    await Fluence.stop();
 }
       
