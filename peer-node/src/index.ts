@@ -6,15 +6,19 @@ import { Listener } from "@listener-js/listener";
 import Http from "@listener-js/http";
 import axios from "axios"
 import bodyParser from "body-parser"
+import cors from "cors"
 const app = express()
 const port = 8080
 let temp;
 
 
 app.use(bodyParser.json())
+app.use(cors())
+
 
 app.get('/', (req, res) => {
-    res.json(req.query)
+    const a = {data: req.query.data, lol: "a"}
+    res.json(a)
 
     // main()
 })
@@ -30,14 +34,14 @@ app.listen(port, () => {
 
 class GiveMeData implements GiveMeDataDef {
     async workWithDocker(data: string) {
-        await axios.post("127.0.0.1:3000", { // поменять адрес и порт
-            data: temp
-          }).then((data)=>{
-            return data
-        }).finally(()=>{
-            return "false"
-        });
-        return "false";
+        // await axios.post("127.0.0.1:3000", { // поменять адрес и порт
+        //     data: temp
+        //   }).then((data)=>{
+        //     return data
+        // }).finally(()=>{
+        //     return "false"
+        // });
+        return "1";
     }
 }
 
