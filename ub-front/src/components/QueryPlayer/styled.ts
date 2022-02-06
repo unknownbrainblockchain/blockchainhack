@@ -10,7 +10,7 @@ export const Left = styled.div`
     background-color: unset;
     border: unset;
     width: 100%;
-    height: 100%;
+    height: 50%;
     resize: none;
     color: ${COLOR_WHITE};
     font-weight: 600;
