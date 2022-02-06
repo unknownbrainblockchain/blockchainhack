@@ -28,9 +28,15 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/send', (req, res) => {
+    console.log("send")
     const address = req.query.data
     const block = req.query.data1
-    axios.get(`http://127.0.0.1:5000/add?address=${address}&start_block=${block}`)
+    axios.get(`http://a1b3-86-62-78-69.ngrok.io/add?address=${address}&start_block=${block}`).then(data=>{
+        console.log("data",data.data);
+        res.json(data.data)
+    }).catch(()=>{
+        res.send("err")
+    })
 })
 
 app.listen(port, () => {
