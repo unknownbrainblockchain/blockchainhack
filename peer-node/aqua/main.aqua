@@ -7,6 +7,8 @@ func workWithDocker(data: string) -> string:
     res <- GiveMeData.workWithDocker(data)
     <- res
 
-func main(targetPeerId: PeerId, targetRelayPeerId: PeerId, data: string):
-    workWithDocker(data)
+func main(targetPeerId: PeerId, targetRelayPeerId: PeerId, data: string) -> string:
+    res <- workWithDocker(data)
+    <- res
+
 
