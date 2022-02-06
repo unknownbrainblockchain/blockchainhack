@@ -17,7 +17,7 @@ import {
 // Services
 
 export interface GiveMeDataDef {
-    getFromPeer: (data: string, callParams: CallParams<'data'>) => string | Promise<string>;
+    getFromPeer: (callParams: CallParams<null>) => string | Promise<string>;
     returnDataToPeer: (data: string, callParams: CallParams<'data'>) => string | Promise<string>;
     workWithDocker: (data: string, callParams: CallParams<'data'>) => string | Promise<string>;
 }
@@ -36,12 +36,6 @@ export function registerGiveMeData(...args: any) {
         {
             "functionName" : "getFromPeer",
             "argDefs" : [
-                {
-                    "name" : "data",
-                    "argType" : {
-                        "tag" : "primitive"
-                    }
-                }
             ],
             "returnType" : {
                 "tag" : "primitive"
@@ -123,7 +117,7 @@ export function getFromPeer(...args: any) {
                           (call targetRelayPeerId ("op" "noop") [])
                          )
                          (xor
-                          (call targetPeerId ("giveMeData" "getFromPeer") [data] res)
+                          (call targetPeerId ("giveMeData" "getFromPeer") [] res)
                           (seq
                            (seq
                             (seq
@@ -404,7 +398,7 @@ export function main(...args: any) {
                              (call targetRelayPeerId ("op" "noop") [])
                             )
                             (xor
-                             (call targetPeerId ("giveMeData" "getFromPeer") [data] res)
+                             (call targetPeerId ("giveMeData" "getFromPeer") [] res)
                              (seq
                               (seq
                                (seq

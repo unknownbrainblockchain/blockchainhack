@@ -1,31 +1,33 @@
 import { Fluence, KeyPair } from "@fluencelabs/fluence";
 import { krasnodar } from "@fluencelabs/fluence-network-environment";
 import { registerGiveMeData, GiveMeDataDef } from "./_aqua/main";
-import { listener } from "@listener-js/listener";
-import { http } from "@listener-js/http";
-import { axios }
+import { Listener } from "@listener-js/listener";
+import http from "@listener-js/http";
+import axios from "axios"
 
 class GiveMeData implements GiveMeDataDef {
-    async function getFromPeer() {
-        listener({ http });
+    async getFromPeer() {
+        new Listener("id");
         const url = "127.0.0.1:8080" // поменять адрес и порт
-        const data = await http.fetch([], url)
+        const _data = await http.fetch([], url)
 
-        return data
+        return _data
     }
 
-    async function workWithDocker(data: string) {
-        let new_data = await axios.post("127.0.0.1:3000", { // поменять адрес и порт
-            data: getFromPeer()
+    async workWithDocker(data: string) {
+        let new_data = await axios.post("127.0.0c.1:3000", { // поменять адрес и порт
+            data: this.getFromPeer()
           });
 
         return new_data
     }
 
-    async function returnDataToPeer(new_data: string) {
+    async returnDataToPeer(data: string) {
         await axios.post("127.0.0.1:8080", { // поменять адрес и порт
-            new_data: workWithDocker(new_data)
+            new_data: this.workWithDocker(data)
         });
+
+        return "ok"
     }
 
 }
