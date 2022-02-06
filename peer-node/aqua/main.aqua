@@ -1,0 +1,26 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+
+service GiveMeData("giveMeData"):
+    getFromPeer() -> string
+    workWithDocker(data: string) -> string
+    returnDataToPeer(data: string) -> string
+
+func getFromPeer(targetPeerId: PeerId, targetRelayPeerId: PeerId, data: string) -> string:
+    on targetPeerId via targetRelayPeerId:
+        res <- GiveMeData.getFromPeer()
+    <- res
+
+func workWithDocker(data: string) -> string:
+    res <- GiveMeData.workWithDocker(data)
+    <- res
+
+func returnDataToPeer(targetPeerId: PeerId, targetRelayPeerId: PeerId, data: string) -> string:
+    on targetPeerId via targetRelayPeerId:
+        res <- GiveMeData.returnDataToPeer(data)
+    <- res
+
+func main(targetPeerId: PeerId, targetRelayPeerId: PeerId, data: string):
+    getFromPeer(targetPeerId, targetRelayPeerId, data)
+    workWithDocker(data)
+    returnDataToPeer(targetPeerId, targetRelayPeerId, data)
+
