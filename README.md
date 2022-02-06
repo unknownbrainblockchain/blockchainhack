@@ -1,18 +1,13 @@
-# Getting Started
+# blockchainhack
+The main idea is to make distributed graph-node, using aqua.
 
-from root
-```bush
-cd .\peer-node\
-npm i
-npm start
-```
+The system contains frontend written in React(ub-front) and back written 
+in Flask which is wrapper over docker container with graph-node.   
+Aqua serves as a middleware that connects the backend with frontend (peer-node)
 
-from root
+We developed an EthGraphQL to Aqua transpiling tool.
+It is a graph-cli fork that generates a .aqua file for a given GraphQL schema.
 
-```bush
-cd .\ub-front\ 
-npm i
-npm start
-```
+dev version can be used with `yarn codegen`
 
-peer-node started fluence node for use with `the graph` 
+the fork can be found here: https://github.com/vasemkin/graph-cli
