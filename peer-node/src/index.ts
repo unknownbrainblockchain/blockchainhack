@@ -1,26 +1,22 @@
 import express from "express"
 import { Fluence, KeyPair } from "@fluencelabs/fluence";
 import { krasnodar } from "@fluencelabs/fluence-network-environment";
-import {registerGiveMeData, GiveMeDataDef} from "./_aqua/main";
+import {registerGiveMeData, GiveMeDataDef, main as flunenceMain} from "./_aqua/main";
 import { Listener } from "@listener-js/listener";
 import Http from "@listener-js/http";
 import axios from "axios"
 import bodyParser from "body-parser"
-import cors from "cors"
 const app = express()
 const port = 8080
 let temp;
 
 
 app.use(bodyParser.json())
-app.use(cors())
-
 
 app.get('/', (req, res) => {
-    const a = {data: req.query.data, lol: "a"}
-    res.json(a)
-
-    // main()
+    main().catch(e => console.log(e));
+    res.json(req.query)
+    
 })
 
 app.get('/send', (req, res) => {
@@ -29,7 +25,8 @@ app.get('/send', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-    main();
+    // main()
+    
 })
 
 class GiveMeData implements GiveMeDataDef {
@@ -41,16 +38,29 @@ class GiveMeData implements GiveMeDataDef {
         // }).finally(()=>{
         //     return "false"
         // });
-        return "1";
+        return "false";
     }
 }
 
-
-async function main() {
-    await Fluence.start({connectTo: krasnodar[3]})
+async function statFluence() {
+    await Fluence.start({
+        KeyPair: await KeyPair.fromEd25519SK(
+            Buffer.from('zuweWzWN9Di7GxQU/sKwFdX/Msgqoco9iGAuF6vaPwk=', 'base64')),
+        connectTo: krasnodar[3]})
     console.log("PeerId: ", Fluence.getStatus().peerId);
     console.log("Relay id: ", Fluence.getStatus().relayPeerId);
-    registerGiveMeData("GiveMeData", new GiveMeData());
+    registerGiveMeData(new GiveMeData());
+}
+
+statFluence();
+
+async function main() {
+    
+    const res = await flunenceMain(Fluence.getStatus().peerId, Fluence.getStatus().relayPeerId, "test");
+
+    console.log(res)
     // await Fluence.stop();
 }
+      
+
       
