@@ -1,0 +1,113 @@
+{
+  "parser": "@babel/eslint-parser",
+    "plugins": ["import","react","prettier","@typescript-eslint/eslint-plugin"],
+    "extends": [
+  "prettier",
+  "prettier/react",
+  "eslint:recommended",
+  "plugin:react/recommended"
+],
+    "overrides": [
+  {
+    "files": ["**/*.ts", "**/*.tsx"],
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "prettier",
+      "prettier/react",
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended"
+    ]
+  }
+],
+    "rules": {
+  "prettier/prettier": ["error", {
+    "endOfLine": "auto",
+    "arrowParens": "avoid"
+  }],
+      "no-unused-vars": "off",
+      "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+      "react/display-name": "off",
+      "react/jsx-curly-brace-presence": ["error",{ "props": "never"}],
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-boolean-value": ["error", "never"],
+      "react/prop-types": [2, {"ignore": ["children"], "skipUndeclared": true}],
+      "react/self-closing-comp": ["error", {
+    "component": true,
+    "html": true
+  }],
+      "import/newline-after-import": ["error", { "count": 1 }],
+      "import/no-unresolved": "off",
+      "import/namespace": "off",
+      "react/no-unescaped-entities": "off",
+      "import/no-unused-modules": [1],
+      "import/order": ["error",{
+    "groups": ["external","internal","unknown","parent","sibling","index","builtin"],
+    "pathGroupsExcludedImportTypes": ["react"],
+    "pathGroups": [
+      {
+        "pattern": "react",
+        "group": "external",
+        "position": "before"
+      },
+      {
+        "pattern": "next/**",
+        "group": "external",
+        "position": "before"
+      },
+      {
+        "pattern": "ui",
+        "group": "internal",
+        "position": "before"
+      },
+      {
+        "pattern": "ui/**",
+        "group": "internal",
+        "position": "before"
+      },
+      {
+        "pattern": "common/**",
+        "group": "internal",
+        "position": "before"
+      },
+      {
+        "pattern": "assets/**",
+        "group": "internal",
+        "position": "before"
+      },
+      {
+        "pattern": "store",
+        "group": "internal",
+        "position": "before"
+      },
+      {
+        "pattern": "services/**",
+        "group": "internal",
+        "position": "before"
+      },
+      {
+        "pattern": "helpers/**",
+        "group": "internal",
+        "position": "after"
+      },
+      {
+        "pattern": "constants/**",
+        "group": "internal",
+        "position": "after"
+      }
+    ]
+  }]
+},
+  "env": {
+  "es6": true,
+      "browser": true,
+      "node": true
+},
+  "parserOptions": {
+  "ecmaFeatures": {
+    "jsx": true,
+        "modules": true,
+        "legacyDecorators": true
+  }
+}
+}
