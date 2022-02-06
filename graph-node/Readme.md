@@ -1,3 +1,6 @@
+**Description**
+Api written on flask to make access to node-graph
+
 **RUN SERVER**
 
 Open docker-compose.yml located in:
